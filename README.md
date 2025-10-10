@@ -1,3 +1,7 @@
+<p align="right">
+  <strong>English</strong> | <a href="README.zh-CN.md">中文文档</a>
+</p>
+
 # 🧩 SuperKernel
 
 [![PHP Version](https://img.shields.io/badge/php-%3E%3D8.4-blue)](https://www.php.net/)
@@ -8,78 +12,79 @@
 
 ---
 
-> **SuperKernel** 是一个以 **Swoole 扩展** 为核心驱动力的现代化 PHP 框架。  
-> 框架的所有组件均遵循 **PSR 规范** 实现，并通过 **DI 容器** 与 **Skernel 工具集** 提供灵活的组件替换与扩展能力。  
-> 致力于探索 **PHP 在高性能与系统编程层面的未来可能性**。
+> SuperKernel is a modern PHP framework powered by the Swoole extension.
+>
+> All components of the framework adhere to the PSR specification and provide flexible component replacement and extensibility through the DI container and Skernel toolkit.
+>
+> We are committed to exploring the future possibilities of PHP in high performance and system programming.
 
 ---
 
-## 🚀 设计初衷
+## 🚀 Design Philosophy
 
-1. **免环境安装** —— 一键运行，无需繁琐配置。  
-2. **自动化启动** —— 框架全权接管生命周期。  
-3. **原生 AOP 支持** —— 面向切面编程的优雅实现。  
-4. **以 Swoole 为核心** —— 拥抱异步、协程与高并发。  
-5. **多协议统一支持** —— HTTP、WebSocket、TCP、UDP 等协议无缝接入。  
-6. **PSR 规范组件化** —— 可替换、可扩展、可独立运行。  
-7. **强类型配置系统** —— 严格约束与清晰定义。
+1. **Zero Environment Setup** – Run instantly without complex installation.
+2. **Auto Boot Lifecycle** – Framework-managed startup and shutdown.
+3. **Native AOP Support** – Elegant aspect-oriented design.
+4. **Swoole-Centric** – Embrace async, coroutine, and concurrency.
+5. **Multi-Protocol Support** – Unified abstraction for HTTP, WebSocket, TCP, and UDP.
+6. **PSR-Based Components** – Replaceable, extensible, and standalone.
+7. **Strongly Typed Configurations** – Clarity and strict validation.
 
 ---
 
-## ⚙️ 安装
+## ⚙️ Installation
 
-使用 [Composer](https://getcomposer.org/)：
+Use [Composer](https://getcomposer.org/)：
 
 ```bash
-待添加模板项目
+Template projects to be added.
 ```
 
-或在已有项目中安装：
+Or install in an existing project:
 
 ```bash
 composer require super-kernel/framework super-kernel/composer-plugin
 ```
 
-## 🧩 快速开始
+## 🧩 Quick Start
 
 ```bash
 composer skernel serve && php target/runtime/bin.php start
 ```
 
-## 🧠 架构概览
+## 🧠 Architecture Overview
 
 ```text
 SuperKernel
- ├── Skernel Tools      # 工具与运行时支持、切面编程与类扫描机制
- ├── DI Container       # 定义器、解析器、惰性实例存储
- ├── Server Components  # HTTP / WebSocket / TCP 等服务模块
- ├── Event Dispatcher   # 生命周期与事件系统
+ ├── Skernel Tools      # Tool and runtime support, aspect programming and class scanning mechanism
+ ├── DI Container       # Definers, Resolvers, Lazy Instance Storage
+ ├── Server Components  # HTTP/WebSocket/TCP and other service modules
+ ├── Event Dispatcher   # Lifecycle and event system
  ├── PSR-Compatible     # PSR-3, PSR-7, PSR-11, PSR-15, PSR-17
 ```
 
-## 📦 当前进展
-SuperKernel 已实现核心运行机制，包括：
+## 📦 Current Progress
+SuperKernel has implemented core operational mechanisms, including:
 
-- 容器定义源与解析器工厂体系
-- 生命周期调度器与自定义进程机制
-- 组件自动注册与服务管理器
-- 类映射生成
+- Container definition source and resolver factory system
+- Lifecycle scheduler and custom process mechanism
+- Automatic component registration and service manager
+- Class map generation
 
-⚠️ 注意：
-项目仍在持续开发中。若用于生产，请确保具备较高的 PHP 与 Swoole 开发经验。
+⚠️ Note:
+This project is still under development. If using this for production, please ensure you have advanced PHP and Swoole development experience.
 
-## 🧭 路线图（Roadmap）
+## 🧭 Roadmap
+- [ ] Improved testing system
+- [ ] Plug-in extension system
+- [x] Multi-service coordinated scheduling
+- [ ] AOP scanner optimization
+- [ ] Improved official documentation and examples
 
- - [ ] 完善测试体系
- - [ ] 插件化扩展系统
- - [x] 多服务协同调度
- - [ ] AOP 扫描器优化
- - [ ] 官方文档与示例完善
+## 📜 License
 
-## 📜 许可证
+This project is open source under the MIT License.
 
-本项目基于 MIT License 开源。
-
-## 💬 致开发者
-> SuperKernel 不仅是一个框架，更是一种理念：
-> “让 PHP 回归系统编程，探索语言的极限。”
+## 💬 To Developers
+> SuperKernel is not just a framework, but a philosophy:
+> "Return PHP to systems programming and explore the limits of the language."
