@@ -40,16 +40,10 @@ Use [Composer](https://getcomposer.org/)：
 composer create-project super-kernel/super-kernel-skeleton
 ```
 
-Or install in an existing project:
-
-```bash
-composer run-scipt dev
-```
-
 ## 🧩 Quick Start
 
 ```bash
-composer skernel serve && php target/runtime/bin.php start
+composer run-scipt dev
 ```
 
 ## 🧠 Architecture Overview

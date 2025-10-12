@@ -2,7 +2,7 @@
 
 [![PHP Version](https://img.shields.io/badge/php-%3E%3D8.4-blue)](https://www.php.net/)
 [![Swoole](https://img.shields.io/badge/swoole-%3E%3D6.*-green)](https://www.swoole.co.uk/)
-[![License](https://img.shields.io/badge/license-MIT-orange)](LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-orange)](../LICENSE)
 [![Code Style](https://img.shields.io/badge/code%20style-PSR--12-lightgrey)](https://www.php-fig.org/psr/psr-12/)
 [![Made with Love](https://img.shields.io/badge/made%20with-%F0%9F%A7%A1%20and%20%F0%9F%92%9A-blueviolet)]()
 
@@ -31,19 +31,13 @@
 使用 [Composer](https://getcomposer.org/)：
 
 ```bash
-待添加模板项目
-```
-
-或在已有项目中安装：
-
-```bash
-composer require super-kernel/framework super-kernel/composer-plugin
+composer create-project super-kernel/super-kernel-skeleton
 ```
 
 ## 🧩 快速开始
 
 ```bash
-composer skernel serve && php target/runtime/bin.php start
+composer run-scipt dev
 ```
 
 ## 🧠 架构概览
