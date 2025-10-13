@@ -37,7 +37,15 @@ composer create-project super-kernel/super-kernel-skeleton
 ## 🧩 快速开始
 
 ```bash
-composer run-scipt dev
+curl -sL $(curl -s https://api.github.com/repos/wheakerd/skernel/releases/latest | grep tar.gz | cut -d '"' -f 4) | sudo tar xz -O skernel > /usr/bin/skernel  && sudo chmod 755 /usr/bin/skernel
+```
+
+```bash
+skernel build --disable-binary
+```
+
+```bash
+php target/release/bin start
 ```
 
 ## 🧠 架构概览
@@ -52,6 +60,7 @@ SuperKernel
 ```
 
 ## 📦 当前进展
+
 SuperKernel 已实现核心运行机制，包括：
 
 - 容器定义源与解析器工厂体系
@@ -75,5 +84,6 @@ SuperKernel 已实现核心运行机制，包括：
 本项目基于 MIT License 开源。
 
 ## 💬 致开发者
+
 > SuperKernel 不仅是一个框架，更是一种理念：
 > “让 PHP 回归系统编程，探索语言的极限。”

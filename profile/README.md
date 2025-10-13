@@ -14,7 +14,8 @@
 
 > SuperKernel is a modern PHP framework powered by the Swoole extension.
 >
-> All components of the framework adhere to the PSR specification and provide flexible component replacement and extensibility through the DI container and Skernel toolkit.
+> All components of the framework adhere to the PSR specification and provide flexible component replacement and
+> extensibility through the DI container and Skernel toolkit.
 >
 > We are committed to exploring the future possibilities of PHP in high performance and system programming.
 
@@ -43,7 +44,15 @@ composer create-project super-kernel/super-kernel-skeleton
 ## 🧩 Quick Start
 
 ```bash
-composer run-scipt dev
+curl -sL $(curl -s https://api.github.com/repos/wheakerd/skernel/releases/latest | grep tar.gz | cut -d '"' -f 4) | sudo tar xz -O skernel > /usr/bin/skernel  && sudo chmod 755 /usr/bin/skernel
+```
+
+```bash
+skernel build --disable-binary
+```
+
+```bash
+php target/release/bin start
 ```
 
 ## 🧠 Architecture Overview
@@ -58,6 +67,7 @@ SuperKernel
 ```
 
 ## 📦 Current Progress
+
 SuperKernel has implemented core operational mechanisms, including:
 
 - Container definition source and resolver factory system
@@ -66,9 +76,11 @@ SuperKernel has implemented core operational mechanisms, including:
 - Class map generation
 
 ⚠️ Note:
-This project is still under development. If using this for production, please ensure you have advanced PHP and Swoole development experience.
+This project is still under development. If using this for production, please ensure you have advanced PHP and Swoole
+development experience.
 
 ## 🧭 Roadmap
+
 - [ ] Improved testing system
 - [ ] Plug-in extension system
 - [x] Multi-service coordinated scheduling
@@ -80,5 +92,6 @@ This project is still under development. If using this for production, please en
 This project is open source under the MIT License.
 
 ## 💬 To Developers
+
 > SuperKernel is not just a framework, but a philosophy:
 > "Return PHP to systems programming and explore the limits of the language."
