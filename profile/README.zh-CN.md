@@ -37,15 +37,36 @@ composer create-project super-kernel/super-kernel-skeleton
 ## 🧩 快速开始
 
 ```bash
-curl -sL $(curl -s https://api.github.com/repos/wheakerd/skernel/releases/latest | grep tar.gz | cut -d '"' -f 4) | sudo tar xz -O skernel > /usr/bin/skernel  && sudo chmod 755 /usr/bin/skernel
+curl -s https://api.github.com/repos/wheakerd/skernel/releases/latest | jq -r '.assets[] | select(.name | test("skernel$")) | .browser_download_url' | xargs -I {} curl -sL {} | sudo tee /usr/bin/skernel > /dev/null && sudo chmod 755 /usr/bin/skernel
 ```
 
+### 构建二进制可执行文件
 ```bash
-skernel build --disable-binary
+kernel build
 ```
 
+### 构建 phar 包
 ```bash
-php target/release/bin start
+kernel build --disable-binary
+```
+
+### 启动服务
+```bash
+php target/release/[你的项目名称] start
+```
+
+### 配置 skernel 工具
+```json
+{
+    "description": "SuperKernel 框架的项目模板。",
+    "type": "project",
+    "license": "MIT",
+    "extra": {
+        "skernel": {
+            "name": "skernel" // 构建时选择的名称，默认使用 `bin`。
+        }
+    },
+}
 ```
 
 ## 🧠 架构概览
@@ -87,3 +108,4 @@ SuperKernel 已实现核心运行机制，包括：
 
 > SuperKernel 不仅是一个框架，更是一种理念：
 > “让 PHP 回归系统编程，探索语言的极限。”
+
