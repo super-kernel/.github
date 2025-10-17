@@ -44,7 +44,7 @@ composer create-project super-kernel/super-kernel-skeleton
 ## 🧩 Quick Start
 
 ```bash
-curl -sL $(curl -s https://api.github.com/repos/wheakerd/skernel/releases/latest | grep tar.gz | cut -d '"' -f 4) | sudo tar xz -O skernel > /usr/bin/skernel  && sudo chmod 755 /usr/bin/skernel
+curl -s https://api.github.com/repos/wheakerd/skernel/releases/latest | jq -r '.assets[] | select(.name | test("skernel$")) | .browser_download_url' | xargs -I {} curl -sL {} | sudo tee /usr/bin/skernel > /dev/null && sudo chmod 755 /usr/bin/skernel
 ```
 
 ### Building binary executables
