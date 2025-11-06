@@ -1,10 +1,15 @@
-# 🧩 SuperKernel
+<div align="center">
+
+# SuperKernel
 
 [![PHP Version](https://img.shields.io/badge/php-%3E%3D8.4-blue)](https://www.php.net/)
-[![Swoole](https://img.shields.io/badge/swoole-%3E%3D6.*-green)](https://www.swoole.co.uk/)
+[![Swoole](https://img.shields.io/badge/swoole-%3E%3D6.0-green)](https://www.swoole.com/)
+[![Platform](https://img.shields.io/badge/platform-linux-lightgrey.svg?logo=linux)](https://www.kernel.org)
 [![License](https://img.shields.io/badge/license-MIT-orange)](../LICENSE)
 [![Code Style](https://img.shields.io/badge/code%20style-PSR--12-lightgrey)](https://www.php-fig.org/psr/psr-12/)
 [![Made with Love](https://img.shields.io/badge/made%20with-%F0%9F%A7%A1%20and%20%F0%9F%92%9A-blueviolet)]()
+
+</div>
 
 ---
 
@@ -28,46 +33,48 @@
 
 ## ⚙️ 安装
 
-使用 [Composer](https://getcomposer.org/)：
+### Composer
+
+如果你的系统尚未安装 PHP 环境，可以前往 👉 [wheakerd/skernel - Releases](https://github.com/wheakerd/skernel/releases)
+下载可执行的 Composer 二进制文件（无需安装`php`环境）。
+
+### Skernel
+
+访问 [Skernel](https://github.com/wheakerd/skernel) 仓库,了解如何下载安装与使用该构建工具。
+
+### 安装 SuperKernel
+
+通过 Composer 创建一个全新的 SuperKernel 项目：
 
 ```bash
 composer create-project super-kernel/super-kernel-skeleton
 ```
 
-## 🧩 快速开始
-
-```bash
-curl -s https://api.github.com/repos/wheakerd/skernel/releases/latest | jq -r '.assets[] | select(.name | test("skernel$")) | .browser_download_url' | xargs -I {} curl -sL {} | sudo tee /usr/bin/skernel > /dev/null && sudo chmod 755 /usr/bin/skernel
-```
-
-### 构建二进制可执行文件
-```bash
-kernel build
-```
-
-### 构建 phar 包
-```bash
-kernel build --disable-binary
-```
-
-### 启动服务
-```bash
-php target/release/[你的项目名称] start
-```
+## 🧩 Quick Start
 
 ### 配置 skernel 工具
+
 ```json
 {
-    "description": "SuperKernel 框架的项目模板。",
-    "type": "project",
-    "license": "MIT",
-    "extra": {
-        "skernel": {
-            "name": "skernel" // 构建时选择的名称，默认使用 `bin`。
-        }
-    },
+  "description": "SuperKernel 框架的项目模板。",
+  "type": "project",
+  "license": "MIT",
+  "extra": {
+    "skernel": {
+      "name": "skernel"
+      // 构建时选择的名称，默认使用 `bin`。
+    }
+  }
 }
 ```
+
+```
+skernel build \
+&& chmod +x target/release/bin \
+&& target/release/bin start
+```
+
+- 若定义了构建产物的名称，请以实际产物运行。
 
 ## 🧠 架构概览
 
@@ -108,4 +115,3 @@ SuperKernel 已实现核心运行机制，包括：
 
 > SuperKernel 不仅是一个框架，更是一种理念：
 > “让 PHP 回归系统编程，探索语言的极限。”
-

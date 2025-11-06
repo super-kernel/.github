@@ -2,13 +2,19 @@
   <strong>English</strong> | <a href="README.zh-CN.md">中文文档</a>
 </p>
 
-# 🧩 SuperKernel
+
+<div align="center">
+
+# SuperKernel
 
 [![PHP Version](https://img.shields.io/badge/php-%3E%3D8.4-blue)](https://www.php.net/)
-[![Swoole](https://img.shields.io/badge/swoole-%3E%3D6.0-green)](https://www.swoole.co.uk/)
-[![License](https://img.shields.io/badge/license-MIT-orange)](LICENSE)
+[![Swoole](https://img.shields.io/badge/swoole-%3E%3D6.0-green)](https://www.swoole.com/)
+[![Platform](https://img.shields.io/badge/platform-linux-lightgrey.svg?logo=linux)](https://www.kernel.org)
+[![License](https://img.shields.io/badge/license-MIT-orange)](../LICENSE)
 [![Code Style](https://img.shields.io/badge/code%20style-PSR--12-lightgrey)](https://www.php-fig.org/psr/psr-12/)
 [![Made with Love](https://img.shields.io/badge/made%20with-%F0%9F%A7%A1%20and%20%F0%9F%92%9A-blueviolet)]()
+
+</div>
 
 ---
 
@@ -35,7 +41,20 @@
 
 ## ⚙️ Installation
 
-Use [Composer](https://getcomposer.org/)：
+### Composer
+
+If your system does not yet have PHP installed, you can go to
+👉 [wheakerd/skernel - Releases](https://github.com/wheakerd/skernel/releases) to download the executable Composer
+binary (no PHP environment required).
+
+### Skernel
+
+Visit the [Skernel](https://github.com/wheakerd/skernel) repository to learn how to download, install, and use this
+build tool.
+
+### Installing SuperKernel
+
+Create a brand new SuperKernel project using Composer:
 
 ```bash
 composer create-project super-kernel/super-kernel-skeleton
@@ -43,26 +62,8 @@ composer create-project super-kernel/super-kernel-skeleton
 
 ## 🧩 Quick Start
 
-```bash
-curl -s https://api.github.com/repos/wheakerd/skernel/releases/latest | jq -r '.assets[] | select(.name | test("skernel$")) | .browser_download_url' | xargs -I {} curl -sL {} | sudo tee /usr/bin/skernel > /dev/null && sudo chmod 755 /usr/bin/skernel
-```
-
-### Building binary executables
-```bash
-skernel build
-```
-
-### Building phar archive
-```bash
-skernel build --disable-binary
-```
-
-### start server
-```bash
-php target/release/[your project name] start
-```
-
 ### Configuring the skernel tool
+
 ```json
 {
     "description": "Project template for the SuperKernel framework.",
@@ -72,9 +73,17 @@ php target/release/[your project name] start
         "skernel": {
             "name": "skernel" // The name selected during the build, `bin` is used by default.
         }
-    },
+    }
 }
 ```
+
+```bash
+skernel build \
+&& chmod +x target/release/bin \
+&& target/release/bin start
+```
+
+- If a build artifact name was defined, run it with the actual artifact.
 
 ## 🧠 Architecture Overview
 
