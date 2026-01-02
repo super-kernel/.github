@@ -20,20 +20,22 @@
 
 > SuperKernel is a modern PHP framework powered by the Swoole extension.
 >
-> All components of the framework adhere to the PSR specification and provide flexible component replacement and
-> extensibility through the DI container and Skernel toolkit.
->
+> It is clarified that PHP is being constrained from a **dynamic scripting language** to a **controlled runtime language
+**, and developers should not focus on the **pre-bootstrapping phase**.  
+> It provides components implemented according to **PSR standards**, and offers flexible component replacement and
+> extension capabilities through a **DI container**.  
 > We are committed to exploring the future possibilities of PHP in high performance and system programming.
 
 ---
 
 ## 🚀 Design Philosophy
 
-1. **Zero Environment Setup** – Run instantly without complex installation.
+1. **Zero Environment Setup** – When generating source code and running it with PHP, there is no need to install a PHP
+   environment.
 2. **Auto Boot Lifecycle** – Framework-managed startup and shutdown.
 3. **Native AOP Support** – Elegant aspect-oriented design.
 4. **Swoole-Centric** – Embrace async, coroutine, and concurrency.
-5. **Multi-Protocol Support** – Unified abstraction for HTTP, WebSocket, TCP, and UDP.
+5. **Multi-Protocol Support** – Unified abstraction for HTTP, WebSocket, TCP, and UDP, and MQTT.
 6. **PSR-Based Components** – Replaceable, extensible, and standalone.
 7. **Strongly Typed Configurations** – Clarity and strict validation.
 
@@ -66,14 +68,15 @@ composer create-project super-kernel/super-kernel-skeleton
 
 ```json
 {
-    "description": "Project template for the SuperKernel framework.",
-    "type": "project",
-    "license": "MIT",
-    "extra": {
-        "skernel": {
-            "name": "skernel" // The name selected during the build, `bin` is used by default.
-        }
+  "description": "Project template for the SuperKernel framework.",
+  "type": "project",
+  "license": "MIT",
+  "extra": {
+    "skernel": {
+      "name": "skernel"
+      // The name selected during the build, `bin` is used by default.
     }
+  }
 }
 ```
 
