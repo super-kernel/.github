@@ -1,7 +1,10 @@
+<p align="right">
+  <strong>English</strong> | <a href="CONTRIBUTING.zh-CN.md">中文文档</a>
+</p>
+
 # Contributing to SuperKernel
 
-Each SuperKernel component is an independent repository and Composer package. Work in the checkout of the component
-you are changing.
+Each SuperKernel component is an independent repository and Composer package. Work in the checkout of the component you are changing.
 
 ## Requirements
 
@@ -24,10 +27,8 @@ composer format:check
 
 ## Environment-gated tests
 
-Some test suites contain tests that need a specific environment, such as ZTS PHP with Swoole thread support or a
-disposable Redis server. Without it, PHPUnit skips those tests and the skip message names the prerequisite.
+Some test suites contain tests that need a specific environment, such as ZTS PHP with Swoole thread support or a disposable Redis server. Without it, PHPUnit skips those tests and the skip message names the prerequisite.
 
 ## Pull requests
 
-Changes reach a component's `main` branch through pull requests. Keep each pull request focused on one change, and
-update the component's `README.md` when the change alters what the package offers developers.
+Changes reach a component's `main` branch through pull requests. Keep each pull request focused on one change, and update the component's `README.md` and `README.zh-CN.md` when the change alters what the package offers developers.
