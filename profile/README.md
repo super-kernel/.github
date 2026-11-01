@@ -14,26 +14,18 @@
 
 </div>
 
-SuperKernel is a component-oriented PHP framework for long-running Swoole applications. Each component is an
-independent Composer package under `super-kernel/*`, built on native PHP attributes, a PSR-11 container, and
-standard PSR interfaces.
+SuperKernel is a component-oriented PHP framework for long-running Swoole applications. Each component is an independent Composer package under `super-kernel/*`, built on native PHP attributes, a PSR-11 container, and standard PSR interfaces.
 
 > [!NOTE]
-> SuperKernel is under active development and has not been released. The repositories carry no tagged releases,
-> and APIs may still change. Each repository's `main` branch is the current development line.
+> SuperKernel is under active development and has not been released. The repositories carry no tagged releases, and APIs may still change. Each repository's `main` branch is the current development line.
 
 ## Highlights
 
-- **Swoole runtime**: server startup, main-process supervision, attribute-driven HTTP serving, background processes,
-  and connection pools on `ext-swoole`.
-- **Scan before run**: attributes are collected in an isolated scan before the application starts, backed by
-  Composer package metadata and cached class graphs.
-- **Dependency injection**: a PSR-11 shared-service container with constructor autowiring, typed lazy configuration,
-  and strict typed environment access.
-- **Aspect-oriented programming**: aspect declarations, method weaving, join points, and interceptor dispatch on top
-  of source transformation with hash-validated file proxies.
-- **PSR interoperability**: PSR-3 logging, PSR-7 HTTP messages, PSR-11 containers, PSR-14 events, and PSR-15 request
-  handlers and middleware.
+- **Swoole runtime**: server startup, main-process supervision, attribute-driven HTTP serving, background processes, and connection pools on `ext-swoole`.
+- **Scan before run**: attributes are collected in an isolated scan before the application starts, backed by Composer package metadata and cached class graphs.
+- **Dependency injection**: a PSR-11 shared-service container with constructor autowiring, typed lazy configuration, and strict typed environment access.
+- **Aspect-oriented programming**: aspect declarations, method weaving, join points, and interceptor dispatch on top of source transformation with hash-validated file proxies.
+- **PSR interoperability**: PSR-3 logging, PSR-7 HTTP messages, PSR-11 containers, PSR-14 events, and PSR-15 request handlers and middleware.
 - **Console**: a Symfony Console application runtime with lazy command registration.
 
 ## Requirements
@@ -41,8 +33,7 @@ standard PSR interfaces.
 - PHP `>=8.4.27 <8.5`
 - `ext-swoole >=6.2.3 <6.3` for the Swoole-based components: `http-server`, `pool`, `process`, `server`, and `swoole`
 - `ext-redis >=6.3.0 <6.4` for `redis`
-- Linux; some components also require `ext-pcntl`, `ext-posix`, or `ext-sockets`. Each repository's `composer.json`
-  lists its exact requirements.
+- Linux; some components also require `ext-pcntl`, `ext-posix`, or `ext-sockets`. Each repository's `composer.json` lists its exact requirements.
 
 ## Components
 
@@ -86,5 +77,4 @@ Each component is published here as an individual repository. Repositories witho
 
 ## License
 
-Every component is released under the [MIT License](https://github.com/super-kernel/.github/blob/main/LICENSE).
-AOP and Mimic also include a `NOTICE` file with their source attribution.
+Every component is released under the [MIT License](https://github.com/super-kernel/.github/blob/main/LICENSE). AOP and Mimic also include a `NOTICE` file with their source attribution.
