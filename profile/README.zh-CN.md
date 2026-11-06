@@ -17,7 +17,7 @@
 SuperKernel 是一个面向组件的 PHP 框架，用于常驻运行的 Swoole 应用。每个组件都是 `super-kernel/*` 下独立的 Composer 包，基于原生 PHP 注解（Attribute）、PSR-11 容器和标准 PSR 接口构建。
 
 > [!NOTE]
-> SuperKernel 仍在积极开发中，尚未正式发布。各仓库没有打任何版本标签，API 仍可能变化。每个仓库的 `main` 分支就是当前的开发线。
+> SuperKernel 仍在积极开发中，尚未正式发布。各组件仓库没有打任何版本标签，API 仍可能变化。每个仓库的 `main` 分支就是当前的开发线。
 
 ## 特性
 
@@ -71,10 +71,16 @@ SuperKernel 是一个面向组件的 PHP 框架，用于常驻运行的 Swoole �
 | 集成 | [redis](https://github.com/super-kernel/redis) | Redis 集成。 |
 | 集成 | [filesystem](https://github.com/super-kernel/filesystem) | 生命周期安全的只读文件系统资源抽象。 |
 
+## 工具
+
+| 工具 | 说明 |
+| --- | --- |
+| [skernel](https://github.com/super-kernel/skernel) | SuperKernel 应用的命令行项目工具，作用相当于 Java 项目中的 Maven：创建、运行、构建和打包项目。以独立的二进制文件通过 [GitHub Releases](https://github.com/super-kernel/skernel/releases) 发布，支持 Linux 和 macOS，不需要 PHP。 |
+
 ## 仓库说明
 
-每个组件都作为独立仓库发布在这里。没有对应当前组件的仓库已归档。
+每个组件和工具都作为独立仓库发布在这里。没有对应当前组件或工具的仓库已归档。
 
 ## 许可证
 
-所有组件都以 [MIT 许可证](https://github.com/super-kernel/.github/blob/main/LICENSE) 发布。AOP 和 Mimic 另附 `NOTICE` 文件，说明其源码来源。
+所有组件和工具都以 [MIT 许可证](https://github.com/super-kernel/.github/blob/main/LICENSE) 发布。AOP 和 Mimic 另附 `NOTICE` 文件，说明其源码来源。
