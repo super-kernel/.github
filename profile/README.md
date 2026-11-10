@@ -22,7 +22,7 @@ SuperKernel is a component-oriented PHP framework for long-running Swoole applic
 ## Highlights
 
 - **Swoole runtime**: server startup, main-process supervision, attribute-driven HTTP serving, background processes, and connection pools on `ext-swoole`.
-- **Scan before run**: attributes are collected in an isolated scan before the application starts, backed by Composer package metadata and cached class graphs.
+- **Build before run**: SKERNEL collects a project's packages, classes, and attributes when it builds the project, and the application restores that metadata at start instead of scanning.
 - **Dependency injection**: a PSR-11 shared-service container with constructor autowiring, typed lazy configuration, and strict typed environment access.
 - **Aspect-oriented programming**: aspect declarations, method weaving, join points, and interceptor dispatch on top of source transformation with hash-validated file proxies.
 - **PSR interoperability**: PSR-3 logging, PSR-7 HTTP messages, PSR-11 containers, PSR-14 events, and PSR-15 request handlers and middleware.
@@ -52,11 +52,9 @@ SuperKernel is a component-oriented PHP framework for long-running Swoole applic
 | Container | [contract](https://github.com/super-kernel/contract) | Shared interface-only application, infrastructure, reflection, and event contracts. |
 | Container | [support](https://github.com/super-kernel/support) | Dependency-free namespaced helpers for caller-owned short-lived instances. |
 | Attributes | [attribute](https://github.com/super-kernel/attribute) | Native PHP Attribute contracts for configuration, DI, events, and third-party integrations. |
-| Attributes | [annotator](https://github.com/super-kernel/annotator) | Isolated package-aware PHP attribute collection. |
-| Attributes | [scan-isolation](https://github.com/super-kernel/scan-isolation) | Anonymous scan callback isolation. |
-| Attributes | [tokenizer](https://github.com/super-kernel/tokenizer) | PHP class-like declaration tokenizer. |
+| Attributes | [annotator](https://github.com/super-kernel/annotator) | Restoration and lookup of build-generated PHP attribute records. |
 | Attributes | [reflector](https://github.com/super-kernel/reflector) | Process-local cached native reflection service. |
-| Attributes | [composer](https://github.com/super-kernel/composer) | Composer package metadata and cached class graphs. |
+| Attributes | [metadata](https://github.com/super-kernel/metadata) | Read-only restoration of build-generated package metadata. |
 | Attributes | [autoloader](https://github.com/super-kernel/autoloader) | Factory-bootstrapped classmap autoloading and interception. |
 | Attributes | [composer-source-reference-plugin](https://github.com/super-kernel/composer-source-reference-plugin) | Deterministic source references for Composer path packages. |
 | AOP | [aop](https://github.com/super-kernel/aop) | Aspect declarations, method weaving, join points, and interceptor dispatch through Mimic. |

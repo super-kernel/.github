@@ -22,7 +22,7 @@ SuperKernel 是一个面向组件的 PHP 框架，用于常驻运行的 Swoole �
 ## 特性
 
 - **Swoole 运行时**：基于 `ext-swoole` 的服务启动、主进程监管、注解驱动的 HTTP 服务、后台进程和连接池。
-- **先扫描，后运行**：应用启动前，在隔离的扫描阶段收集注解，并以 Composer 包元数据和缓存的类图为基础。
+- **先构建，后运行**：SKERNEL 在构建项目时收集项目的包、类和注解，应用启动时只还原这些元数据，不再扫描。
 - **依赖注入**：支持构造函数自动装配的 PSR-11 共享服务容器、类型化的延迟配置，以及严格类型的环境变量访问。
 - **面向切面编程**：在源码转换和带哈希校验的文件代理之上，提供切面声明、方法织入、连接点和拦截器调度。
 - **PSR 互操作**：PSR-3 日志、PSR-7 HTTP 消息、PSR-11 容器、PSR-14 事件，以及 PSR-15 请求处理器和中间件。
@@ -52,11 +52,9 @@ SuperKernel 是一个面向组件的 PHP 框架，用于常驻运行的 Swoole �
 | 容器 | [contract](https://github.com/super-kernel/contract) | 共享的纯接口契约：应用、基础设施、反射和事件。 |
 | 容器 | [support](https://github.com/super-kernel/support) | 无依赖的命名空间辅助函数，用于调用方持有的短生命周期实例。 |
 | 注解 | [attribute](https://github.com/super-kernel/attribute) | 原生 PHP 注解契约，覆盖配置、DI、事件和第三方集成。 |
-| 注解 | [annotator](https://github.com/super-kernel/annotator) | 隔离、感知包边界的 PHP 注解收集。 |
-| 注解 | [scan-isolation](https://github.com/super-kernel/scan-isolation) | 匿名扫描回调的隔离执行。 |
-| 注解 | [tokenizer](https://github.com/super-kernel/tokenizer) | PHP 类级声明的词法分析器。 |
+| 注解 | [annotator](https://github.com/super-kernel/annotator) | 还原并查询构建生成的 PHP 注解记录。 |
 | 注解 | [reflector](https://github.com/super-kernel/reflector) | 进程内缓存的原生反射服务。 |
-| 注解 | [composer](https://github.com/super-kernel/composer) | Composer 包元数据与缓存的类图。 |
+| 注解 | [metadata](https://github.com/super-kernel/metadata) | 只读地还原构建生成的包元数据。 |
 | 注解 | [autoloader](https://github.com/super-kernel/autoloader) | 由工厂引导的类映射自动加载与拦截。 |
 | 注解 | [composer-source-reference-plugin](https://github.com/super-kernel/composer-source-reference-plugin) | 为 Composer 路径包生成确定性的源码引用。 |
 | AOP | [aop](https://github.com/super-kernel/aop) | 切面声明、方法织入、连接点，以及通过 Mimic 的拦截器调度。 |
