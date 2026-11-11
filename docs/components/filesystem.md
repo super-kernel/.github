@@ -245,4 +245,3 @@ Every exception implements `SuperKernel\Filesystem\Exception\FilesystemException
 ## What not to do
 
 **Do not return the same stream from a factory twice.** The resource closes the stream after each read cycle, so a closure that returns a stream it keeps hands a closed stream to the second `read()`, which fails with `Unable to open <description>.` Open a new stream inside the closure every time it is called.
-
