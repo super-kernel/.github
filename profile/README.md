@@ -59,7 +59,7 @@ SuperKernel is a component-oriented PHP framework for long-running Swoole applic
 | Attributes | [composer-source-reference-plugin](https://github.com/super-kernel/composer-source-reference-plugin) | Deterministic source references for Composer path packages. |
 | AOP | [aop](https://github.com/super-kernel/aop) | Aspect declarations, method weaving, join points, and interceptor dispatch through Mimic. |
 | AOP | [mimic](https://github.com/super-kernel/mimic) | Source preparation with pluggable transformations, source-hash-validated file proxies, and stream fallback. |
-| Swoole | [server](https://github.com/super-kernel/server) | Swoole server startup services and console command. |
+| Swoole | [server](https://github.com/super-kernel/server) | Creation and startup of the configured Swoole server, events for its creation and callbacks, and user processes. |
 | Swoole | [swoole](https://github.com/super-kernel/swoole) | Swoole console commands and main process supervision. |
 | Swoole | [http-server](https://github.com/super-kernel/http-server) | Attribute-driven HTTP routing, middleware, and Swoole integration. |
 | Swoole | [http-message](https://github.com/super-kernel/http-message) | PSR-7 messages and scoped HTTP message access. |
@@ -74,6 +74,10 @@ SuperKernel is a component-oriented PHP framework for long-running Swoole applic
 | Tool | Description |
 | --- | --- |
 | [skernel](https://github.com/super-kernel/skernel) | Command-line project tool for SuperKernel applications: it creates, runs, builds, and packages a project. Published as a standalone binary through [GitHub Releases](https://github.com/super-kernel/skernel/releases) for Linux and macOS; it needs no PHP. |
+
+## Documentation
+
+The [developer documentation](https://github.com/super-kernel/.github/blob/main/docs/README.md) has a getting-started guide, a guide to building and build metadata, and one page per component with complete examples.
 
 ## Repositories
 

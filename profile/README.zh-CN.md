@@ -59,7 +59,7 @@ SuperKernel 是一个面向组件的 PHP 框架，用于常驻运行的 Swoole �
 | 注解 | [composer-source-reference-plugin](https://github.com/super-kernel/composer-source-reference-plugin) | 为 Composer 路径包生成确定性的源码引用。 |
 | AOP | [aop](https://github.com/super-kernel/aop) | 切面声明、方法织入、连接点，以及通过 Mimic 的拦截器调度。 |
 | AOP | [mimic](https://github.com/super-kernel/mimic) | 可插拔转换的源码准备、带源码哈希校验的文件代理和流回退。 |
-| Swoole | [server](https://github.com/super-kernel/server) | Swoole 服务启动服务与控制台命令。 |
+| Swoole | [server](https://github.com/super-kernel/server) | 所配置的 Swoole 服务器的创建和启动、其创建和回调的事件，以及用户进程。 |
 | Swoole | [swoole](https://github.com/super-kernel/swoole) | Swoole 控制台命令与主进程监管。 |
 | Swoole | [http-server](https://github.com/super-kernel/http-server) | 注解驱动的 HTTP 路由、中间件，以及 Swoole 集成。 |
 | Swoole | [http-message](https://github.com/super-kernel/http-message) | PSR-7 消息与作用域内的 HTTP 消息访问。 |
@@ -74,6 +74,10 @@ SuperKernel 是一个面向组件的 PHP 框架，用于常驻运行的 Swoole �
 | 工具 | 说明 |
 | --- | --- |
 | [skernel](https://github.com/super-kernel/skernel) | SuperKernel 应用的命令行项目工具，用于创建、运行、构建和打包项目。以独立的二进制文件通过 [GitHub Releases](https://github.com/super-kernel/skernel/releases) 发布，支持 Linux 和 macOS，不需要 PHP。 |
+
+## 文档
+
+[开发者文档](https://github.com/super-kernel/.github/blob/main/docs/README.zh-CN.md)包含入门指南、构建与构建元数据指南，以及每个组件一页、带完整示例的说明。
 
 ## 仓库说明
 
