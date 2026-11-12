@@ -10,7 +10,7 @@
 
 - 一台 Linux 或 macOS 机器。
 - 网络访问，以及第一次构建托管 PHP 所需的构建工具：C 编译器、`perl`、`re2c`、`autoconf`、`automake`、`cmake`、`libtool` 和 `gettext`。SKERNEL 从不安装系统软件包；构建失败时，输出会指出缺少什么。
-- Composer 2。找不到 Composer 时，`skernel new` 和 `skernel package` 会下载自己的 Composer，但修改依赖需要你机器上的 Composer。
+- Composer 2。找不到 Composer 时，SKERNEL 会下载自己的 Composer，但修改依赖需要你机器上的 Composer。
 
 SKERNEL 用它自己的静态 PHP（托管 PHP）来构建、运行和打包项目，而不是使用系统上的 PHP。**在一台机器上，第一个需要托管 PHP 的命令会从源码构建它，这需要一段时间。** SKERNEL 把它保存在 `~/.skernel` 或 `SKERNEL_HOME` 指定的目录中，之后凡是需要相同 PHP 版本和扩展的命令都会复用它。
 
@@ -121,13 +121,23 @@ skernel run swoole:start
 
 现在 `curl http://127.0.0.1:9600/hello/world` 会打印 `Hello, world!`。修改已有的类同样只需要下一次构建。
 
-要在每次修改后重新构建并重启，请使用 `--watch` 运行：
+要在每次修改后重新构建并重启，请在项目的配置文件中开启监视。SKERNEL 从项目目录的 `skernel.json` 读取项目的设置，没有 `skernel.json` 时改读 `skernel.json.dist`；两个文件从不合并，这些设置也没有命令行选项。共享的设置请作为 `skernel.json.dist` 提交，只用于一台机器的 `skernel.json` 不要纳入版本控制。将它保存为 `skernel.json`：
 
-```bash
-skernel run --watch swoole:start
+```json
+{
+    "run": {
+        "watch": true
+    }
+}
 ```
 
-这样 SKERNEL 每秒检查一次 PHP 文件、`.env` 文件和 `composer.lock` 的变化，并在每次变化（包括添加类）之后构建并重启应用。
+然后像之前一样运行应用：
+
+```bash
+skernel run swoole:start
+```
+
+这样 SKERNEL 每秒检查一次名称与 `run.watch-files` 中某个模式匹配的文件是否变化，默认模式为 `*.php`、`.env`、`.env.*`、`composer.json` 和 `composer.lock`，并在每次变化（包括添加类）之后构建并重启应用。它从不监视依赖目录、`target/` 以及名称以点开头的目录。`run.watch` 默认为 `false`。
 
 ## 先构建，再用 PHP 启动
 
@@ -168,11 +178,25 @@ Package written to /path/to/my-app/target/my-app.
 ./target/my-app swoole:start
 ```
 
-打包结果不包含项目目录中的 `.env` 和 `.env.*`；打包后的应用从进程环境读取它的环境。使用 `--phar` 得到 PHAR 而不是可执行文件，使用 `--dev` 包含开发依赖，使用 `--output=<path>` 指定其他位置。`skernel clean` 会删除 `target/` 和 `vendor/.cache` 中的构建产物。
+打包结果不包含项目目录中的 `.env` 和 `.env.*`，也不包含 `skernel.json` 和 `skernel.json.dist`；打包后的应用从进程环境读取它的环境。`package` 的设置决定写出什么：`package.phar` 为 `true` 时写出 PHAR 而不是可执行文件，`package.dev` 为 `true` 时包含开发依赖，`package.output` 指定另一个相对于项目目录的路径，`package.runtime` 用你自己的 micro 运行时代替托管的运行时。例如，下面的配置让 `skernel package` 改为把 PHAR 写到 `dist/my-app.phar`。将它保存为 `skernel.json`：
+
+```json
+{
+    "run": {
+        "watch": true
+    },
+    "package": {
+        "output": "dist/my-app.phar",
+        "phar": true
+    }
+}
+```
+
+`skernel clean` 会删除 `target/` 和 `vendor/.cache` 中的构建产物；通过 `package.output` 写到其他位置的包会保留。
 
 ## 下一步
 
 - [构建与元数据](building-and-metadata.zh-CN.md)：构建写出什么，以及缺失或过期的构建如何报告。
 - [SuperKernel DI](../components/di.zh-CN.md)：声明服务并注入它们。
 - [SuperKernel Event](../components/event.zh-CN.md)：在应用启动或构建时执行操作。
-- [SKERNEL README](https://github.com/super-kernel/skernel/blob/main/README.zh-CN.md)：每个命令和选项，以及 `skernel.json` 配置文件。
+- [SKERNEL README](https://github.com/super-kernel/skernel/blob/main/README.zh-CN.md)：每个命令，以及 `skernel.json` 配置文件的每个设置及其默认值。
