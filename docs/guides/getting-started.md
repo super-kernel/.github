@@ -10,7 +10,7 @@ This guide takes you from installing SKERNEL to a running SuperKernel applicatio
 
 - A Linux or macOS machine.
 - Network access, and the build tools that the first managed PHP needs: a C compiler, `perl`, `re2c`, `autoconf`, `automake`, `cmake`, `libtool`, and `gettext`. SKERNEL never installs system packages; when a build fails, the output names what is missing.
-- Composer 2. `skernel new` and `skernel package` download their own when none is found, but changing dependencies needs Composer on your machine.
+- Composer 2. SKERNEL downloads its own when it finds none, but changing dependencies needs Composer on your machine.
 
 SKERNEL builds, runs, and packages a project with a static PHP of its own, the managed PHP, not with the PHP on your system. **The first command that needs a managed PHP on a machine builds it from source, and that takes a while.** SKERNEL keeps it in `~/.skernel`, or in the directory that `SKERNEL_HOME` names, and reuses it for every later command that needs the same PHP version and extensions.
 
@@ -121,13 +121,23 @@ skernel run swoole:start
 
 `curl http://127.0.0.1:9600/hello/world` now prints `Hello, world!`. A change to an existing class also needs only the next build.
 
-To rebuild and restart on every change, run with `--watch`:
+To rebuild and restart on every change, turn on watching in the project's configuration file. SKERNEL reads a project's settings from `skernel.json` in the project directory, or from `skernel.json.dist` when there is no `skernel.json`; the two files are never merged, and the settings have no command-line options. Commit shared settings as `skernel.json.dist`, and keep a `skernel.json` for one machine out of version control. Save it as `skernel.json`:
 
-```bash
-skernel run --watch swoole:start
+```json
+{
+    "run": {
+        "watch": true
+    }
+}
 ```
 
-SKERNEL then checks once a second for changes to PHP files, `.env` files, and `composer.lock`, and builds and restarts the application after each change, including the addition of a class.
+Then run the application as before:
+
+```bash
+skernel run swoole:start
+```
+
+SKERNEL then checks once a second for changes to the files whose name matches a pattern of `run.watch-files`, by default `*.php`, `.env`, `.env.*`, `composer.json`, and `composer.lock`, and builds and restarts the application after each change, including the addition of a class. It never watches the vendor directory, `target/`, or directories whose name starts with a dot. `run.watch` is `false` by default.
 
 ## Build, then start with PHP
 
@@ -168,11 +178,25 @@ The file is named after the last part of the root package's name, so `target/my-
 ./target/my-app swoole:start
 ```
 
-The package leaves out `.env` and `.env.*` in the project directory; a packaged application reads its environment from the process environment. Use `--phar` for a PHAR instead of an executable, `--dev` to include development dependencies, and `--output=<path>` for another location. `skernel clean` removes `target/` and the build artifacts in `vendor/.cache`.
+The package leaves out `.env` and `.env.*` in the project directory, and `skernel.json` and `skernel.json.dist`; a packaged application reads its environment from the process environment. The `package` settings change what it writes: `package.phar` set to `true` writes a PHAR instead of an executable, `package.dev` set to `true` includes development dependencies, `package.output` names another path, relative to the project directory, and `package.runtime` names a micro runtime of your own instead of the managed one. For example, this configuration makes `skernel package` write a PHAR to `dist/my-app.phar` instead. Save it as `skernel.json`:
+
+```json
+{
+    "run": {
+        "watch": true
+    },
+    "package": {
+        "output": "dist/my-app.phar",
+        "phar": true
+    }
+}
+```
+
+`skernel clean` removes `target/` and the build artifacts in `vendor/.cache`; a package written elsewhere through `package.output` stays.
 
 ## Next steps
 
 - [Building and metadata](building-and-metadata.md): what the build writes, and how a missing or outdated build is reported.
 - [SuperKernel DI](../components/di.md): declaring services and injecting them.
 - [SuperKernel Event](../components/event.md): acting when the application starts or is built.
-- The [SKERNEL README](https://github.com/super-kernel/skernel#readme): every command and option, and the `skernel.json` configuration file.
+- The [SKERNEL README](https://github.com/super-kernel/skernel#readme): every command, and every setting of the `skernel.json` configuration file with its default.
