@@ -341,11 +341,11 @@ echo make(Report::class, [new Formatter(), 'csv'])->render('Sales'), PHP_EOL;
 
 ## 错误
 
-对于它检测到的失败，`make()` 抛出 PHP 的 `InvalidArgumentException`。它从不捕获或重试：`super-kernel/context`、容器的 `has()` 和 `get()`、反射以及构造函数抛出的异常都会原样传出，查找失败也从不退回到默认值、`null`、其他候选项或普通构造。抽象类或错误的参数类型仍然是 PHP 错误。
+对于它检测到的失败，`make()` 抛出 PHP 的 `InvalidArgumentException`。它从不捕获或重试：`super-kernel/context`、容器的 `has()` 和 `get()`、反射以及构造函数抛出的异常都会原样传出，查找失败也从不退回到默认值、`null`、其他候选项或普通构造。在报告无法填充的参数之前，`make()` 会对参数类型中的每个类型调用一次容器的 `get()`：第一个不是“未找到”的失败（例如某个类加载失败）成为前一个异常，因为容器的 `has()` 只会把这种失败报告为 `false`。抽象类或错误的参数类型仍然是 PHP 错误。
 
 | 情形 | 消息 |
 | --- | --- |
-| 某个参数没有值、条目、默认值或 `null` 可用 | `Unable to resolve constructor parameter <class>::__construct($<parameter>) of type <type>.`；参数没有类型时不含 ` of type <type>` |
+| 某个参数没有值、条目、默认值或 `null` 可用 | `Unable to resolve constructor parameter <class>::__construct($<parameter>) of type <type>.`；参数没有类型时不含 ` of type <type>`；其某个类型的查找失败是前一个异常 |
 | 多个候选项存在条目 | `Ambiguous constructor parameter <class>::__construct($<parameter>): <id>, <id>.` |
 | 引用传递的参数 | `Constructor parameter <class>::__construct($<parameter>) cannot be resolved because references are unsupported.` |
 

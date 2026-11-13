@@ -571,7 +571,7 @@ bool(true)
 | --- | --- |
 | 没有定义 | `Container entry "<id>" has no definition.` |
 | 同一个标识符有两个 `Provider`、无法实例化的自身映射、不是其目标子类型的提供者、同一个标识符有两个 `FactoryProvider`、工厂没有公开的构造方式或自己的公开非静态 `__invoke()`，或者定义器失败 | `Unable to obtain a definition for container entry "<id>".`，原因在前一个异常中，例如 `Provider <id> is declared by both <class> and <class>.` 或 `<class> must declare a public non-static __invoke method.` |
-| 参数类型中没有任何类或接口存在条目，且没有默认值 | `Unable to resolve method parameter <class>::<method>($<parameter>) of type <type>.` |
+| 参数类型中没有任何类或接口存在条目，且没有默认值 | `Unable to resolve method parameter <class>::<method>($<parameter>) of type <type>.`；若容器对其中某个类型的 `get()` 以“未找到”以外的方式失败，例如该类加载失败，该失败就是前一个异常 |
 | 参数类型中有多个类或接口存在条目 | `Method parameter <class>::<method>($<parameter>) is ambiguous: <id>, <id> are available.` |
 | 引用传递的参数 | `Method parameter <class>::<method>($<parameter>) cannot be resolved because references are unsupported.` |
 | 构造函数抛出异常 | `Unable to construct container entry "<class>".` |
