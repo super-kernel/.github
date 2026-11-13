@@ -17,7 +17,7 @@
 SuperKernel 是一个面向组件的 PHP 框架，用于常驻运行的 Swoole 应用。每个组件都是 `super-kernel/*` 下独立的 Composer 包，基于原生 PHP 注解（Attribute）、PSR-11 容器和标准 PSR 接口构建。
 
 > [!NOTE]
-> SuperKernel 处于 alpha 阶段，尚未发布稳定版。各组件和 SKERNEL 以统一的版本号发布 `1.0.0-alpha.N` 预发布版本，相邻的 alpha 版本之间 API 仍可能变化。每个仓库的 `main` 分支就是当前的开发线。
+> SuperKernel 处于 beta 阶段，尚未发布稳定版。各组件和 SKERNEL 以统一的版本号发布 `1.0.0-beta.N` 预发布版本。架构和构建元数据格式已冻结，`1.0.0` 之前 API 仍可能微调。每个仓库的 `main` 分支就是当前的开发线。
 
 ## 特性
 
