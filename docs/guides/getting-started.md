@@ -9,10 +9,10 @@ This guide takes you from installing SKERNEL to a running SuperKernel applicatio
 ## Before you start
 
 - A Linux or macOS machine.
-- Network access, and the build tools that the first managed PHP needs: a C compiler, `perl`, `re2c`, `autoconf`, `automake`, `cmake`, `libtool`, and `gettext`. SKERNEL never installs system packages; when a build fails, the output names what is missing.
+- Network access. A managed PHP that is not published prebuilt is built on your machine, which needs build tools: a C compiler, `perl`, `re2c`, `autoconf`, `automake`, `cmake`, `libtool`, and `gettext`. SKERNEL never installs system packages; when a build fails, the output names what is missing.
 - Composer 2. SKERNEL downloads its own when it finds none, but changing dependencies needs Composer on your machine.
 
-SKERNEL builds, runs, and packages a project with a static PHP of its own, the managed PHP, not with the PHP on your system. **The first command that needs a managed PHP on a machine builds it from source, and that takes a while.** SKERNEL keeps it in `~/.skernel`, or in the directory that `SKERNEL_HOME` names, and reuses it for every later command that needs the same PHP version and extensions.
+SKERNEL builds, runs, and packages a project with a static PHP of its own, the managed PHP, not with the PHP on your system. **The first command that needs a managed PHP on a machine downloads it prebuilt from [super-kernel-tools/runtimes](https://github.com/super-kernel-tools/runtimes), which publishes the managed PHP of the project this guide creates.** A project with a PHP version or extensions that are not published there gets its managed PHP built from source instead, which takes a while and needs the build tools above; so does every project whose `skernel.json` sets `"prebuilt": false`. SKERNEL keeps a managed PHP in `~/.skernel`, or in the directory that `SKERNEL_HOME` names, and reuses it for every later command that needs the same PHP version and extensions.
 
 ## Install SKERNEL
 
@@ -32,7 +32,7 @@ chmod +x skernel
 skernel new my-app
 ```
 
-`new` creates the project in `my-app` from the `super-kernel/skeleton` template released with the same version as your SKERNEL, using Composer's `create-project` command, and installs its dependencies. Without a Composer 2 on your machine, it downloads one and runs it with a managed PHP, which it builds the first time. On success it prints:
+`new` creates the project in `my-app` from the `super-kernel/skeleton` template released with the same version as your SKERNEL, using Composer's `create-project` command, and installs its dependencies. Without a Composer 2 on your machine, it downloads one and runs it with a managed PHP, which it downloads the first time. On success it prints:
 
 ```text
 Project created in /path/to/my-app.
@@ -67,7 +67,7 @@ cd my-app
 skernel run swoole:start
 ```
 
-`run` builds the project, then starts it with the managed PHP and passes `swoole:start` to the application, which starts the Swoole HTTP server. The first run on a machine also builds the managed PHP. The log shows the listener:
+`run` builds the project, then starts it with the managed PHP and passes `swoole:start` to the application, which starts the Swoole HTTP server. The first run on a machine also downloads the managed PHP. The log shows the listener:
 
 ```text
 [NOTICE] Swoole main server started in base mode.
