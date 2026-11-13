@@ -16,10 +16,10 @@ SKERNEL 用它自己的静态 PHP（托管 PHP）来构建、运行和打包项�
 
 ## 安装 SKERNEL
 
-从[最新发布](https://github.com/super-kernel/skernel/releases/latest)下载适合你平台的二进制文件，平台为 `linux-x86_64`、`linux-aarch64`、`macos-aarch64` 和 `macos-x86_64` 之一。它不需要 PHP。以 x86-64 架构的 Linux 为例：
+从[最新发布](https://github.com/super-kernel-tools/skernel/releases/latest)下载适合你平台的二进制文件，平台为 `linux-x86_64`、`linux-aarch64`、`macos-aarch64` 和 `macos-x86_64` 之一。它不需要 PHP。以 x86-64 架构的 Linux 为例：
 
 ```bash
-curl -fsSL -o skernel https://github.com/super-kernel/skernel/releases/latest/download/skernel-linux-x86_64
+curl -fsSL -o skernel https://github.com/super-kernel-tools/skernel/releases/latest/download/skernel-linux-x86_64
 chmod +x skernel
 ./skernel --version
 ```
@@ -199,4 +199,4 @@ Package written to /path/to/my-app/target/my-app.
 - [构建与元数据](building-and-metadata.zh-CN.md)：构建写出什么，以及缺失或过期的构建如何报告。
 - [SuperKernel DI](../components/di.zh-CN.md)：声明服务并注入它们。
 - [SuperKernel Event](../components/event.zh-CN.md)：在应用启动或构建时执行操作。
-- [SKERNEL README](https://github.com/super-kernel/skernel/blob/main/README.zh-CN.md)：每个命令，以及 `skernel.json` 配置文件的每个设置及其默认值。
+- [SKERNEL README](https://github.com/super-kernel-tools/skernel/blob/main/README.zh-CN.md)：每个命令，以及 `skernel.json` 配置文件的每个设置及其默认值。

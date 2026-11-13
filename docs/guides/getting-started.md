@@ -16,10 +16,10 @@ SKERNEL builds, runs, and packages a project with a static PHP of its own, the m
 
 ## Install SKERNEL
 
-Download the binary for your platform, one of `linux-x86_64`, `linux-aarch64`, `macos-aarch64`, and `macos-x86_64`, from the [latest release](https://github.com/super-kernel/skernel/releases/latest). It needs no PHP. For Linux on x86-64:
+Download the binary for your platform, one of `linux-x86_64`, `linux-aarch64`, `macos-aarch64`, and `macos-x86_64`, from the [latest release](https://github.com/super-kernel-tools/skernel/releases/latest). It needs no PHP. For Linux on x86-64:
 
 ```bash
-curl -fsSL -o skernel https://github.com/super-kernel/skernel/releases/latest/download/skernel-linux-x86_64
+curl -fsSL -o skernel https://github.com/super-kernel-tools/skernel/releases/latest/download/skernel-linux-x86_64
 chmod +x skernel
 ./skernel --version
 ```
@@ -199,4 +199,4 @@ The package leaves out `.env` and `.env.*` in the project directory, and `skerne
 - [Building and metadata](building-and-metadata.md): what the build writes, and how a missing or outdated build is reported.
 - [SuperKernel DI](../components/di.md): declaring services and injecting them.
 - [SuperKernel Event](../components/event.md): acting when the application starts or is built.
-- The [SKERNEL README](https://github.com/super-kernel/skernel#readme): every command, and every setting of the `skernel.json` configuration file with its default.
+- The [SKERNEL README](https://github.com/super-kernel-tools/skernel#readme): every command, and every setting of the `skernel.json` configuration file with its default.
