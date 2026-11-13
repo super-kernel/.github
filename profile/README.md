@@ -83,7 +83,7 @@ The [developer documentation](https://github.com/super-kernel/.github/blob/main/
 
 ## Repositories
 
-Each component and tool is published here as an individual repository. Repositories without a current component or tool are archived.
+Each component is published here as an individual repository, and each tool in the [super-kernel-tools](https://github.com/super-kernel-tools) organization. Repositories here without a current component are archived.
 
 ## License
 
