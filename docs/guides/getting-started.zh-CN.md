@@ -9,10 +9,10 @@
 ## 开始之前
 
 - 一台 Linux 或 macOS 机器。
-- 网络访问，以及第一次构建托管 PHP 所需的构建工具：C 编译器、`perl`、`re2c`、`autoconf`、`automake`、`cmake`、`libtool` 和 `gettext`。SKERNEL 从不安装系统软件包；构建失败时，输出会指出缺少什么。
+- 网络访问。没有预构建版本发布的托管 PHP 会在你的机器上构建，这需要构建工具：C 编译器、`perl`、`re2c`、`autoconf`、`automake`、`cmake`、`libtool` 和 `gettext`。SKERNEL 从不安装系统软件包；构建失败时，输出会指出缺少什么。
 - Composer 2。找不到 Composer 时，SKERNEL 会下载自己的 Composer，但修改依赖需要你机器上的 Composer。
 
-SKERNEL 用它自己的静态 PHP（托管 PHP）来构建、运行和打包项目，而不是使用系统上的 PHP。**在一台机器上，第一个需要托管 PHP 的命令会从源码构建它，这需要一段时间。** SKERNEL 把它保存在 `~/.skernel` 或 `SKERNEL_HOME` 指定的目录中，之后凡是需要相同 PHP 版本和扩展的命令都会复用它。
+SKERNEL 用它自己的静态 PHP（托管 PHP）来构建、运行和打包项目，而不是使用系统上的 PHP。**在一台机器上，第一个需要托管 PHP 的命令会从 [super-kernel-tools/runtimes](https://github.com/super-kernel-tools/runtimes) 下载预构建的版本，本指南所创建项目的托管 PHP 就发布在那里。** 如果项目的 PHP 版本或扩展没有在那里发布，它的托管 PHP 就改为从源码构建，这需要一段时间，也需要上面的构建工具；`skernel.json` 中设置了 `"prebuilt": false` 的项目同样如此。SKERNEL 把托管 PHP 保存在 `~/.skernel` 或 `SKERNEL_HOME` 指定的目录中，之后凡是需要相同 PHP 版本和扩展的命令都会复用它。
 
 ## 安装 SKERNEL
 
@@ -32,7 +32,7 @@ chmod +x skernel
 skernel new my-app
 ```
 
-`new` 使用 Composer 的 `create-project` 命令，从与你的 SKERNEL 同一版本发布的 `super-kernel/skeleton` 模板在 `my-app` 中创建项目，并安装它的依赖。如果你的机器上没有 Composer 2，它会下载一个，并用托管 PHP 运行它，第一次时会构建托管 PHP。成功时它会打印：
+`new` 使用 Composer 的 `create-project` 命令，从与你的 SKERNEL 同一版本发布的 `super-kernel/skeleton` 模板在 `my-app` 中创建项目，并安装它的依赖。如果你的机器上没有 Composer 2，它会下载一个，并用托管 PHP 运行它，第一次时会下载托管 PHP。成功时它会打印：
 
 ```text
 Project created in /path/to/my-app.
@@ -67,7 +67,7 @@ cd my-app
 skernel run swoole:start
 ```
 
-`run` 先构建项目，然后用托管 PHP 启动它，并把 `swoole:start` 传给应用，由应用启动 Swoole HTTP 服务器。在一台机器上第一次运行时，还会构建托管 PHP。日志会显示监听器：
+`run` 先构建项目，然后用托管 PHP 启动它，并把 `swoole:start` 传给应用，由应用启动 Swoole HTTP 服务器。在一台机器上第一次运行时，还会下载托管 PHP。日志会显示监听器：
 
 ```text
 [NOTICE] Swoole main server started in base mode.
