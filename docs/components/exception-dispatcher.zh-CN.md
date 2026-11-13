@@ -8,7 +8,7 @@
 
 ## 用途
 
-`super-kernel/exception-dispatcher` 决定到达应用某个边界的异常由谁获知。边界（例如由 `super-kernel/framework` 运行的控制台命令）把异常交给 `SuperKernel\Contract\ExceptionDispatcherInterface`；本包调用为其类声明的每个处理器，并在它们都没有完成时通过标准输出日志记录器记录完整的异常。
+`super-kernel/exception-dispatcher` 决定到达应用某个边界的异常由谁获知。边界（例如由 `super-kernel/framework` 运行的控制台命令）把异常交给 `SuperKernel\Contract\ExceptionDispatcherInterface`；本包调用为其类声明的每个处理器，并在它们都没有完成时通过标准输出日志记录器记录完整的异常。该日志记录器是 `SuperKernel\Contract\StdoutLoggerInterface` 的一个提供者，例如 `super-kernel/logger`；本包建议（suggest）但并不依赖该包，除非应用自己提供该接口，否则请用 `composer require super-kernel/logger` 安装它。
 
 本包只负责报告。接下来发生什么（例如退出状态、HTTP 响应或重试）由捕获异常的边界决定。它在容器就绪之后工作，不处理此前发生的任何失败。
 
@@ -281,11 +281,11 @@ Operator notified about LogicException
 | 派生注解可重复，或者允许用于类以外的目标 | `<attribute> on <class> must be a non-repeatable class-only Attribute.` |
 | `exception` 不是 `Throwable` 类 | `<attribute> on <class> must declare a Throwable class; <class> provided.` |
 
-容器无法创建的处理器会在同一时刻抛出容器自己的异常。没有声明 PHP 自己的 `#[Attribute]` 的派生注解根本无法读取：`skernel build` 会跳过使用它的每个类，并用 PHP 的消息 `Attempting to use non-attribute class "<attribute>" as attribute` 报告，该处理器永远不会被注册。
+容器无法创建的处理器会在同一时刻抛出容器自己的异常。缺少 `StdoutLoggerInterface` 的提供者时，分发器本身无法创建，同样会使 `skernel build` 和应用启动失败，消息为 `Unable to resolve method parameter SuperKernel\ExceptionDispatcher\Provider\ExceptionDispatcherProvider::__invoke($logger) of type SuperKernel\Contract\StdoutLoggerInterface.` 请安装 `super-kernel/logger`，或提供你自己的日志记录器。没有声明 PHP 自己的 `#[Attribute]` 的派生注解根本无法读取：`skernel build` 会跳过使用它的每个类，并用 PHP 的消息 `Attempting to use non-attribute class "<attribute>" as attribute` 报告，该处理器永远不会被注册。
 
 ## 与其他包的关系
 
-- [`super-kernel/contract`](contract.zh-CN.md) 声明 `ExceptionDispatcherInterface` 和 `StdoutLoggerInterface`；[`super-kernel/logger`](logger.zh-CN.md) 提供接收兜底记录的标准输出日志记录器。
+- [`super-kernel/contract`](contract.zh-CN.md) 声明 `ExceptionDispatcherInterface` 和 `StdoutLoggerInterface`；[`super-kernel/logger`](logger.zh-CN.md) 提供接收兜底记录的标准输出日志记录器；本包建议（suggest）但并不依赖它。
 - [`super-kernel/framework`](framework.zh-CN.md) 分发控制台异常和未被捕获的异常；[`super-kernel/http-server`](http-server.zh-CN.md) 维护自己从 `ExceptionHandler` 派生的处理器家族。
 - [`super-kernel/di`](di.zh-CN.md) 创建处理器；[`super-kernel/annotator`](annotator.zh-CN.md) 提供记录下来的声明，包括派生注解。
 - `skernel build` 收集处理器；`skernel run` 在启动应用之前先构建。

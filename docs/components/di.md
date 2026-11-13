@@ -571,7 +571,7 @@ bool(true)
 | --- | --- |
 | No definition | `Container entry "<id>" has no definition.` |
 | Two `Provider`s for one identifier, a self mapping that is not instantiable, a provider that is not a subtype of its target, two `FactoryProvider`s for one identifier, a factory without public construction or its own public non-static `__invoke()`, or a failing definer | `Unable to obtain a definition for container entry "<id>".`, with the reason in a previous exception, such as `Provider <id> is declared by both <class> and <class>.` or `<class> must declare a public non-static __invoke method.` |
-| No class or interface in a parameter's type has an entry, and there is no default | `Unable to resolve method parameter <class>::<method>($<parameter>) of type <type>.` |
+| No class or interface in a parameter's type has an entry, and there is no default | `Unable to resolve method parameter <class>::<method>($<parameter>) of type <type>.`; when the container's `get()` for one of those types fails other than as not found, for example because the class fails to load, that failure is the previous exception |
 | More than one class or interface in a parameter's type has an entry | `Method parameter <class>::<method>($<parameter>) is ambiguous: <id>, <id> are available.` |
 | A by-reference parameter | `Method parameter <class>::<method>($<parameter>) cannot be resolved because references are unsupported.` |
 | A constructor throws | `Unable to construct container entry "<class>".` |

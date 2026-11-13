@@ -20,10 +20,10 @@ PSR-7 对象和当前请求服务属于 `super-kernel/http-message`。创建服�
 
 - `Controller` 首先接收路由前缀，然后接收监听器名称 `server`，默认为 `http`。该名称必须与服务器配置中某个监听器的 `name` 完全一致，包括大小写。每个监听器都有自己的路由表，因此同一个方法和路径可以存在于两个监听器上，而且控制器对其他监听器不可见。
 - `RequestMapping` 接收路径和一个 `SuperKernel\HttpServer\Constants\HttpMethod` 枚举值，默认为 `HttpMethod::Get`；需要更多方法时重复使用它。不接受方法字符串。只有控制器类自己声明的公开非静态方法才会被路由；继承来的或静态的带有 `RequestMapping` 的方法会被忽略。
-- 完整路径是前缀后接路由路径，二者都以 `/` 开头。因此路由路径 `''` 或 `/` 在 `<prefix>/`（带有结尾斜杠）上应答，而不是在单独的前缀上。
+- 完整路径是前缀后接路由路径，二者都以 `/` 开头；前缀结尾的斜杠会被去掉。路由路径 `''` 在前缀本身上应答，路由路径 `/` 在前缀后接一个斜杠的路径上应答：对于 `#[Controller('/user')]`，`''` 应答 `/user`，`/` 应答 `/user/`，二者可以同时存在。没有前缀时，二者都应答 `/`。
 - 路径使用 FastRoute 语法：`{name}` 匹配一个路径段，`{name:\d+}` 匹配一个正则表达式。某个监听器路由表中的冲突（例如同一个方法和路径出现两次）会在启动时以 `Unable to build the HTTP route table.` 终止服务器。
 
-动作参数按以下顺序填充：名称与路由变量相同的参数接收该值，并转换为参数的 `string`、`int`、`float`、`bool` 或回退枚举（backed enum）类型；类型为 `Psr\Http\Message\ServerRequestInterface` 的参数接收当前请求；类型为另一个类或接口的参数从容器中解析；否则参数保留默认值，或者在可为 null 时接收 `null`。其他参数会抛出 `Unable to resolve parameter $<name> of <class>::<method>().` 路由变量也是请求属性。无法转换的值（例如未知的枚举值）会抛出 `Route value <value> cannot be converted for parameter $<name>.`，并以 `500` 应答；可能出现其他值时，请用正则表达式约束路由变量。
+动作参数按以下顺序填充：名称与路由变量相同的参数接收该值，并转换为参数的 `string`、`int`、`float`、`bool` 或回退枚举（backed enum）类型；类型为 `Psr\Http\Message\ServerRequestInterface` 的参数接收当前请求；类型为另一个类或接口的参数从容器中解析；否则参数保留默认值，或者在可为 null 时接收 `null`。其他参数会抛出 `Unable to resolve parameter $<name> of <class>::<method>().` 路由变量也是请求属性。无法转换的值（例如 `int` 参数收到的 `abc`，或未知的枚举值）会抛出状态为 `400`、消息为 `Bad Request` 的 `SuperKernel\HttpServer\Exception\HttpException`，消息从不重复该值；它像其他异常一样到达监听器的异常处理器，没有停止处理链的处理器时，以纯文本 `400 Bad Request` 应答。名称与路由变量相同、但类型永远无法接收值的参数（例如不是回退枚举的类或接口、纯枚举（unit enum）或 `array`）属于声明错误：服务器不会启动，注册路由时会抛出 `Route parameter $<name> of <class>::<method>() has type <type>, which cannot receive a route value.`。
 
 控制器本身从容器中解析，结果必须是控制器类或其子类（例如代理）的实例。其他对象、标量或 `null` 会在解析动作参数之前抛出 `HTTP controller <class> must resolve to a compatible instance, <type> returned.` 容器抛出的异常原样传出；缺失的、私有的或受保护的动作，或者类型错误的参数，会抛出 PHP 自身的错误。
 
@@ -419,12 +419,13 @@ URI 由各个部分通过 PSR-7 的 `with*()` 方法构建，从不通过解析�
 | 没有实现该接口的处理器 | `HTTP exception handler <class> must implement SuperKernel\HttpServer\Contract\HttpExceptionHandlerInterface; <type> provided.` |
 | 一个监听器上的路由冲突 | `Unable to build the HTTP route table.`，FastRoute 给出的原因作为前一个异常（previous） |
 | 容器返回的不是该控制器 | `HTTP controller <class> must resolve to a compatible instance, <type> returned.` |
-| 无法转换的路由值 | `Route value <value> cannot be converted for parameter $<name>.` |
+| 名称与路由变量相同的参数，其类型无法接收值 | `Route parameter $<name> of <class>::<method>() has type <type>, which cannot receive a route value.` |
+| 无法转换的路由值 | 状态为 `400`、消息为 `Bad Request` 的 `HttpException` |
 | 无法填充的动作参数 | `Unable to resolve parameter $<name> of <class>::<method>().` |
 | 动作返回不支持的值 | `HTTP results must be a PSR-7 response, JSON-compatible data, a scalar, Stringable, or null; <type> provided.` |
 | 没有监听器属性的请求 | `SuperKernel\HttpServer\Provider\RequestHandlerProvider requires the super-kernel.server.listener request attribute to be an array with a non-empty string name; <type> provided.` |
 
-声明错误是 `SuperKernel\HttpServer\Exception\InvalidHttpDeclarationException`；注解错误是构建或容器构造注解时抛出的 `InvalidArgumentException`。在请求期间，每个错误都会到达监听器的异常处理器，没有停止处理链的处理器时以安全的 `500` 结束。
+声明错误是 `SuperKernel\HttpServer\Exception\InvalidHttpDeclarationException`；注解错误是构建或容器构造注解时抛出的 `InvalidArgumentException`。在请求期间，每个错误都会到达监听器的异常处理器，没有停止处理链的处理器时以安全的 `500` 结束；`HttpException`（例如路由值引起的 `400`）例外，它保留自己的状态。
 
 ## 与其他包的关系
 
@@ -446,8 +447,8 @@ URI 由各个部分通过 PSR-7 的 `with*()` 方法构建，从不通过解析�
 
 **不要把 `RequestMapping` 放在继承来的或静态的方法上。** 只有控制器类自己声明的公开非静态方法才会被路由；其他方法会被忽略，且不报错。请在控制器中声明该动作。
 
-**不要依赖枚举或类型化参数来拒绝路由值。** 无法转换的值以 `500` 而不是 `404` 结束。请用正则表达式限制路由变量，例如 `{widget:gear|spring}`。
+**不要依赖枚举或类型化参数来选择路由。** 无法转换的值以 `400 Bad Request` 应答；请求不会落到另一个路由或 `404`。当应由另一个路由匹配，或客户端应看到 `404` 时，请用正则表达式限制路由变量，例如 `{widget:gear|spring}`。
 
-**除非确有此意，不要在通配处理器中停止所有异常。** 不带 `exception:` 的处理器也会收到路由的 `404` 和 `405`，以及错误 `Host` 引起的 `400`，会停止处理链的处理器会替换它们的响应。请声明它所针对的异常类。
+**除非确有此意，不要在通配处理器中停止所有异常。** 不带 `exception:` 的处理器也会收到路由的 `404` 和 `405`、错误 `Host` 引起的 `400`，以及无法转换的路由值引起的 `400`，会停止处理链的处理器会替换它们的响应。请声明它所针对的异常类。
 
 **不要指望控制器异常会经过你的中间件。** 它直接进入异常处理器，因此中间件在返回途中添加的头不会出现在那个响应中。请也在异常处理器中添加这些头。

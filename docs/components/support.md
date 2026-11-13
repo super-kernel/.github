@@ -341,11 +341,11 @@ echo make(Report::class, [new Formatter(), 'csv'])->render('Sales'), PHP_EOL;
 
 ## Errors
 
-`make()` raises PHP's `InvalidArgumentException` for the failures it detects. It never catches or retries: exceptions of `super-kernel/context`, of the container's `has()` and `get()`, of reflection, and of the constructor pass through unchanged, and a failed lookup never falls back to a default, `null`, another candidate, or plain construction. An abstract class or a wrong argument type remains a PHP error.
+`make()` raises PHP's `InvalidArgumentException` for the failures it detects. It never catches or retries: exceptions of `super-kernel/context`, of the container's `has()` and `get()`, of reflection, and of the constructor pass through unchanged, and a failed lookup never falls back to a default, `null`, another candidate, or plain construction. Before reporting a parameter it cannot fill, `make()` asks the container's `get()` for each of the parameter's types once: the first failure other than not found, such as a class that fails to load, becomes the previous exception, because a container's `has()` reports such a failure only as `false`. An abstract class or a wrong argument type remains a PHP error.
 
 | Situation | Message |
 | --- | --- |
-| No value, entry, default, or `null` for a parameter | `Unable to resolve constructor parameter <class>::__construct($<parameter>) of type <type>.`, without ` of type <type>` when the parameter has no type |
+| No value, entry, default, or `null` for a parameter | `Unable to resolve constructor parameter <class>::__construct($<parameter>) of type <type>.`, without ` of type <type>` when the parameter has no type; a lookup failure of one of its types is the previous exception |
 | More than one candidate has an entry | `Ambiguous constructor parameter <class>::__construct($<parameter>): <id>, <id>.` |
 | A by-reference parameter | `Constructor parameter <class>::__construct($<parameter>) cannot be resolved because references are unsupported.` |
 

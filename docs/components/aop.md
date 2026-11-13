@@ -10,7 +10,7 @@ Package: [`super-kernel/aop`](https://github.com/super-kernel/aop) · [Packagist
 
 `super-kernel/aop` lets code run around the methods of other classes without editing them: logging, timing, caching, or checks that belong to many calls. An aspect is a class that declares its targets with `#[Aspect]` and implements `AspectInterface`. When the application has started and a target class is loaded for the first time, the package loads a transformed copy of the class instead, in which every method passes its call to the aspect.
 
-The transformed source is prepared and cached by `super-kernel/mimic`; the class map comes from `SuperKernel\Contract\AutoLoaderInterface`, which `super-kernel/autoloader` provides. Weaving starts with the application of `super-kernel/framework`, and `skernel build` prepares the transformed classes in advance.
+The transformed source is prepared and cached by `super-kernel/mimic`; the class map comes from `SuperKernel\Contract\AutoLoaderInterface`, which the package needs as soon as one aspect exists. `super-kernel/autoloader` provides it; the package suggests that package but does not require it, so install it with `composer require super-kernel/autoloader`. Weaving starts with the application of `super-kernel/framework`, and `skernel build` prepares the transformed classes in advance.
 
 ## Capabilities
 
@@ -340,14 +340,15 @@ An exception thrown by a transformed method keeps its object and reports the ori
 | A generator, static local, or `__FUNCTION__`, `__METHOD__`, or `__LINE__` | `AOP cannot preserve generators, static locals, or method/line magic constants.` |
 | Loading a target needs the same target again; through the container it surfaces as an unresolvable parameter | `Recursive instrumentation of <class>.` |
 | The class map's file does not declare the class | `The mapped source did not declare <class>.` |
+| An aspect exists and no package provides `AutoLoaderInterface` | The container's `Unable to resolve method parameter SuperKernel\Aop\AutoLoader::__construct($autoLoader) of type SuperKernel\Contract\AutoLoaderInterface.` |
 | An empty or malformed selector for `Dispatcher::intercept()` | `An interceptor selector must be a non-empty name.` or `A method selector must contain a class name and method name.` |
 
-The declaration errors are `InvalidArgumentException`s raised while `skernel build` reads the Attribute, which skips the class and reports it, so the aspect does not exist. The others are raised when a class is prepared or loaded: `InvalidArgumentException`, `LogicException`, or `RuntimeException`.
+The declaration errors are `InvalidArgumentException`s raised while `skernel build` reads the Attribute, which skips the class and reports it, so the aspect does not exist. The others are raised when a class is prepared or loaded: `InvalidArgumentException`, `LogicException`, or `RuntimeException`. A missing `AutoLoaderInterface` provider fails `skernel build` and the application's start, before any class is woven; installing `super-kernel/autoloader` resolves it.
 
 ## Relation to other packages
 
 - [`super-kernel/mimic`](mimic.md) prepares and caches the transformed source; this package provides its transformation.
-- [`super-kernel/autoloader`](autoloader.md) provides `AutoLoaderInterface` and the class map; the package does not require it, so install it with this package.
+- [`super-kernel/autoloader`](autoloader.md) provides `AutoLoaderInterface` and the class map; the package suggests it but does not require it, so install it with this package as soon as one aspect exists.
 - [`super-kernel/framework`](framework.md) publishes `BeforeApplicationStart`, which starts weaving; [`super-kernel/event`](event.md) declares it and `ApplicationBuild`.
 - [`super-kernel/di`](di.md) creates the aspects; [`super-kernel/annotator`](annotator.md) provides the recorded `#[Aspect]` declarations; [`super-kernel/metadata`](metadata.md) provides the package locations that name the source constants.
 - `skernel build` collects the aspects and prepares the proxies; `skernel run` builds before it starts the application.

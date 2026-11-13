@@ -8,7 +8,7 @@ Package: [`super-kernel/exception-dispatcher`](https://github.com/super-kernel/e
 
 ## Purpose
 
-`super-kernel/exception-dispatcher` decides who hears about an exception that reaches one of the application's boundaries. A boundary, such as a console command run by `super-kernel/framework`, passes the throwable to `SuperKernel\Contract\ExceptionDispatcherInterface`; the package calls every handler declared for its class and, when none of them completes, records the complete exception through the stdout logger.
+`super-kernel/exception-dispatcher` decides who hears about an exception that reaches one of the application's boundaries. A boundary, such as a console command run by `super-kernel/framework`, passes the throwable to `SuperKernel\Contract\ExceptionDispatcherInterface`; the package calls every handler declared for its class and, when none of them completes, records the complete exception through the stdout logger. That logger is a provider of `SuperKernel\Contract\StdoutLoggerInterface`, such as `super-kernel/logger`, which the package suggests but does not require; install it with `composer require super-kernel/logger` unless the application provides its own.
 
 The package only reports. What happens next, such as an exit status, an HTTP response, or a retry, belongs to the boundary that caught the exception. It works once the container is ready and handles nothing that fails before.
 
@@ -281,11 +281,11 @@ The handlers are collected and created when the container first creates the hand
 | A derived Attribute is repeatable or allowed on more than classes | `<attribute> on <class> must be a non-repeatable class-only Attribute.` |
 | `exception` is not a `Throwable` class | `<attribute> on <class> must declare a Throwable class; <class> provided.` |
 
-A handler that the container cannot create raises the container's own exception at the same moment. A derived Attribute that does not declare PHP's own `#[Attribute]` cannot be read at all: `skernel build` skips each class that uses it and reports it with PHP's message `Attempting to use non-attribute class "<attribute>" as attribute`, and the handler is never registered.
+A handler that the container cannot create raises the container's own exception at the same moment. Without a `StdoutLoggerInterface` provider, the dispatcher itself cannot be created, which fails `skernel build` and the application's start in the same way with `Unable to resolve method parameter SuperKernel\ExceptionDispatcher\Provider\ExceptionDispatcherProvider::__invoke($logger) of type SuperKernel\Contract\StdoutLoggerInterface.` Install `super-kernel/logger`, or provide your own logger. A derived Attribute that does not declare PHP's own `#[Attribute]` cannot be read at all: `skernel build` skips each class that uses it and reports it with PHP's message `Attempting to use non-attribute class "<attribute>" as attribute`, and the handler is never registered.
 
 ## Relation to other packages
 
-- [`super-kernel/contract`](contract.md) declares `ExceptionDispatcherInterface` and `StdoutLoggerInterface`; [`super-kernel/logger`](logger.md) provides the stdout logger that receives the fallback records.
+- [`super-kernel/contract`](contract.md) declares `ExceptionDispatcherInterface` and `StdoutLoggerInterface`; [`super-kernel/logger`](logger.md) provides the stdout logger that receives the fallback records; the package suggests it but does not require it.
 - [`super-kernel/framework`](framework.md) dispatches console and uncaught exceptions; [`super-kernel/http-server`](http-server.md) keeps its own handler family derived from `ExceptionHandler`.
 - [`super-kernel/di`](di.md) creates the handlers; [`super-kernel/annotator`](annotator.md) provides the recorded declarations, including derived Attributes.
 - `skernel build` collects the handlers; `skernel run` builds before it starts the application.

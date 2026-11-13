@@ -10,7 +10,7 @@
 
 `super-kernel/aop` 让代码在其他类的方法周围运行而无需修改这些类：例如属于许多调用的日志、计时、缓存或检查。切面是一个用 `#[Aspect]` 声明其目标并实现 `AspectInterface` 的类。当应用已经启动、目标类首次被加载时，本包会改为加载该类的一份转换后的副本，其中每个方法都把调用交给切面。
 
-转换后的源码由 `super-kernel/mimic` 准备和缓存；类映射来自 `SuperKernel\Contract\AutoLoaderInterface`，由 `super-kernel/autoloader` 提供。织入随 `super-kernel/framework` 的应用启动而开始，`skernel build` 会预先准备转换后的类。
+转换后的源码由 `super-kernel/mimic` 准备和缓存；类映射来自 `SuperKernel\Contract\AutoLoaderInterface`，只要存在一个切面，本包就需要它。`super-kernel/autoloader` 提供该接口；本包建议（suggest）但并不依赖该包，请用 `composer require super-kernel/autoloader` 安装它。织入随 `super-kernel/framework` 的应用启动而开始，`skernel build` 会预先准备转换后的类。
 
 ## 能力
 
@@ -340,14 +340,15 @@ php bin/clock.php
 | 生成器、静态局部变量，或 `__FUNCTION__`、`__METHOD__`、`__LINE__` | `AOP cannot preserve generators, static locals, or method/line magic constants.` |
 | 加载目标时再次需要同一个目标；通过容器时表现为无法解析的参数 | `Recursive instrumentation of <class>.` |
 | 类映射中的文件没有声明该类 | `The mapped source did not declare <class>.` |
+| 存在切面，但没有任何包提供 `AutoLoaderInterface` | 容器的 `Unable to resolve method parameter SuperKernel\Aop\AutoLoader::__construct($autoLoader) of type SuperKernel\Contract\AutoLoaderInterface.` |
 | 传给 `Dispatcher::intercept()` 的选择器为空或格式错误 | `An interceptor selector must be a non-empty name.` 或 `A method selector must contain a class name and method name.` |
 
-声明错误是在 `skernel build` 读取注解时抛出的 `InvalidArgumentException`，构建会跳过该类并报告它，因此该切面不存在。其他错误在准备或加载类时抛出：`InvalidArgumentException`、`LogicException` 或 `RuntimeException`。
+声明错误是在 `skernel build` 读取注解时抛出的 `InvalidArgumentException`，构建会跳过该类并报告它，因此该切面不存在。其他错误在准备或加载类时抛出：`InvalidArgumentException`、`LogicException` 或 `RuntimeException`。缺少 `AutoLoaderInterface` 的提供者会在织入任何类之前使 `skernel build` 和应用启动失败；安装 `super-kernel/autoloader` 即可解决。
 
 ## 与其他包的关系
 
 - [`super-kernel/mimic`](mimic.zh-CN.md) 准备并缓存转换后的源码；本包提供它所用的转换。
-- [`super-kernel/autoloader`](autoloader.zh-CN.md) 提供 `AutoLoaderInterface` 和类映射；本包并不依赖它，因此请与本包一起安装它。
+- [`super-kernel/autoloader`](autoloader.zh-CN.md) 提供 `AutoLoaderInterface` 和类映射；本包建议（suggest）但并不依赖它，因此只要存在一个切面，就请与本包一起安装它。
 - [`super-kernel/framework`](framework.zh-CN.md) 发布开始织入的 `BeforeApplicationStart`；[`super-kernel/event`](event.zh-CN.md) 声明它和 `ApplicationBuild`。
 - [`super-kernel/di`](di.zh-CN.md) 创建切面；[`super-kernel/annotator`](annotator.zh-CN.md) 提供记录下来的 `#[Aspect]` 声明；[`super-kernel/metadata`](metadata.zh-CN.md) 提供用于命名源码常量的包位置。
 - `skernel build` 收集切面并准备代理；`skernel run` 在启动应用之前先构建。
