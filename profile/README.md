@@ -17,7 +17,7 @@
 SuperKernel is a component-oriented PHP framework for long-running Swoole applications. Each component is an independent Composer package under `super-kernel/*`, built on native PHP attributes, a PSR-11 container, and standard PSR interfaces.
 
 > [!NOTE]
-> SuperKernel is in its alpha stage and has no stable release yet. The components and SKERNEL are released together under one version number as `1.0.0-alpha.N` pre-releases, and APIs may still change from one alpha to the next. Each repository's `main` branch is the current development line.
+> SuperKernel is in its beta stage and has no stable release yet. The components and SKERNEL are released together under one version number as `1.0.0-beta.N` pre-releases. The architecture and the build metadata format are frozen; APIs may still be refined before `1.0.0`. Each repository's `main` branch is the current development line.
 
 ## Highlights
 
