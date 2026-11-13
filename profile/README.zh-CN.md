@@ -71,9 +71,11 @@ SuperKernel 是一个面向组件的 PHP 框架，用于常驻运行的 Swoole �
 
 ## 工具
 
+SuperKernel 的工具位于 [super-kernel-tools](https://github.com/super-kernel-tools) 组织。
+
 | 工具 | 说明 |
 | --- | --- |
-| [skernel](https://github.com/super-kernel/skernel) | SuperKernel 应用的命令行项目工具，用于创建、运行、构建和打包项目。以独立的二进制文件通过 [GitHub Releases](https://github.com/super-kernel/skernel/releases) 发布，支持 Linux 和 macOS，不需要 PHP。 |
+| [skernel](https://github.com/super-kernel-tools/skernel) | SuperKernel 应用的命令行项目工具，用于创建、运行、构建和打包项目。以独立的二进制文件通过 [GitHub Releases](https://github.com/super-kernel-tools/skernel/releases) 发布，支持 Linux 和 macOS，不需要 PHP。 |
 
 ## 文档
 

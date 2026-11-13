@@ -71,9 +71,11 @@ SuperKernel is a component-oriented PHP framework for long-running Swoole applic
 
 ## Tools
 
+SuperKernel's tools live in the [super-kernel-tools](https://github.com/super-kernel-tools) organization.
+
 | Tool | Description |
 | --- | --- |
-| [skernel](https://github.com/super-kernel/skernel) | Command-line project tool for SuperKernel applications: it creates, runs, builds, and packages a project. Published as a standalone binary through [GitHub Releases](https://github.com/super-kernel/skernel/releases) for Linux and macOS; it needs no PHP. |
+| [skernel](https://github.com/super-kernel-tools/skernel) | Command-line project tool for SuperKernel applications: it creates, runs, builds, and packages a project. Published as a standalone binary through [GitHub Releases](https://github.com/super-kernel-tools/skernel/releases) for Linux and macOS; it needs no PHP. |
 
 ## Documentation
 

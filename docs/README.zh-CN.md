@@ -71,7 +71,7 @@ SuperKernel 是一个面向长期运行的 Swoole 应用、以组件为中心的
 ## 项目模板与工具
 
 - [skeleton](https://github.com/super-kernel/skeleton)：`skernel new` 用来创建应用的项目模板；[快速入门](guides/getting-started.zh-CN.md)会逐步介绍它。
-- [SKERNEL](https://github.com/super-kernel/skernel)：创建、运行、构建并打包项目的命令行工具，以独立二进制文件的形式通过 [GitHub Releases](https://github.com/super-kernel/skernel/releases) 发布。
+- [SKERNEL](https://github.com/super-kernel-tools/skernel)：创建、运行、构建并打包项目的命令行工具，以独立二进制文件的形式通过 [GitHub Releases](https://github.com/super-kernel-tools/skernel/releases) 发布。
 
 ## 许可证
 

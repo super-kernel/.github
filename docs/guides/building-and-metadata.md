@@ -118,4 +118,4 @@ The generated files store paths relative to the project and vendor directories. 
 - [Getting started](getting-started.md): the commands in the order a developer uses them.
 - [SuperKernel Metadata](../components/metadata.md), [SuperKernel Annotator](../components/annotator.md), and [SuperKernel DI](../components/di.md): the packages that restore the build.
 - [SuperKernel Event](../components/event.md): `ApplicationBuild` and writing build artifacts from a listener.
-- The [SKERNEL README](https://github.com/super-kernel/skernel#readme): the `build`, `run`, `package`, and `clean` commands.
+- The [SKERNEL README](https://github.com/super-kernel-tools/skernel#readme): the `build`, `run`, `package`, and `clean` commands.

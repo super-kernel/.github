@@ -71,7 +71,7 @@ Examples use the layout of a project created from `super-kernel/skeleton`: appli
 ## Project template and tool
 
 - [skeleton](https://github.com/super-kernel/skeleton): the project template that `skernel new` creates an application from; [Getting started](guides/getting-started.md) walks through it.
-- [SKERNEL](https://github.com/super-kernel/skernel): the command-line tool that creates, runs, builds, and packages a project, published as a standalone binary through [GitHub Releases](https://github.com/super-kernel/skernel/releases).
+- [SKERNEL](https://github.com/super-kernel-tools/skernel): the command-line tool that creates, runs, builds, and packages a project, published as a standalone binary through [GitHub Releases](https://github.com/super-kernel-tools/skernel/releases).
 
 ## License
 

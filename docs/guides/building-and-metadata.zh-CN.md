@@ -118,4 +118,4 @@ SKERNEL skipped 2 classes whose attributes could not be collected:
 - [快速入门](getting-started.zh-CN.md)：按开发者使用的顺序介绍各个命令。
 - [SuperKernel Metadata](../components/metadata.zh-CN.md)、[SuperKernel Annotator](../components/annotator.zh-CN.md) 和 [SuperKernel DI](../components/di.zh-CN.md)：恢复构建结果的包。
 - [SuperKernel Event](../components/event.zh-CN.md)：`ApplicationBuild` 以及从监听器写出构建产物。
-- [SKERNEL README](https://github.com/super-kernel/skernel/blob/main/README.zh-CN.md)：`build`、`run`、`package` 和 `clean` 命令。
+- [SKERNEL README](https://github.com/super-kernel-tools/skernel/blob/main/README.zh-CN.md)：`build`、`run`、`package` 和 `clean` 命令。
