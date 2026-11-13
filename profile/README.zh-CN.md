@@ -83,7 +83,7 @@ SuperKernel 的工具位于 [super-kernel-tools](https://github.com/super-kernel
 
 ## 仓库说明
 
-每个组件和工具都作为独立仓库发布在这里。没有对应当前组件或工具的仓库已归档。
+每个组件都作为独立仓库发布在这里，工具则发布在 [super-kernel-tools](https://github.com/super-kernel-tools) 组织。这里没有对应当前组件的仓库已归档。
 
 ## 许可证
 
